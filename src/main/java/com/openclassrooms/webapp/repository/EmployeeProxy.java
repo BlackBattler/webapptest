@@ -89,7 +89,7 @@ public class EmployeeProxy {
                 Employee.class
         );
 
-        log.debug("Update Employee call" + response.getStatusCode().toString());
+        log.debug("Update Employee call " + response.getStatusCode().toString());
 
         return response.getBody();
     }
@@ -104,9 +104,8 @@ public class EmployeeProxy {
                 deleteEmployeeUrl,
                 HttpMethod.DELETE,
                 null,
-                Void.class
-        );
+                Void.class);
 
-        log.debug("Delete Employee call" + response.getStatusCode().toString());
+        log.debug("Delete Employee call " + response.getStatusCode().toString());
     }
 }
