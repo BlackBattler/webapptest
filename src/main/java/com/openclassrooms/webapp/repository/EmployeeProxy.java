@@ -21,7 +21,7 @@ public class EmployeeProxy {
     private CustomProperties customProperties;
 
     // Get all employees
-    public Iterable<Employee> getEmployee() {
+    public Iterable<Employee> getEmployees() {
         String baseApiUrl = customProperties.getApiURL();
         String getEmployeeUrl = baseApiUrl + "/employees";
 
@@ -39,7 +39,7 @@ public class EmployeeProxy {
     }
 
     // Get an employee by id
-    public Employee getEmployee(int id){
+    public Employee getEmployee(int id) {
         String baseApiUrl = customProperties.getApiURL();
         String getEmployeeUrl = baseApiUrl + "/employee/" + id;
 
@@ -57,7 +57,7 @@ public class EmployeeProxy {
     }
 
     // Create a new employee
-    public Employee createEmployee(Employee e){
+    public Employee createEmployee(Employee e) {
         String baseApiUrl = customProperties.getApiURL();
         String createEmployeeUrl = baseApiUrl + "/employee";
 
@@ -76,7 +76,7 @@ public class EmployeeProxy {
     }
 
     // Update an employee
-    public Employee updateEmployee(Employee e){
+    public Employee updateEmployee(Employee e) {
         String baseApiUrl = customProperties.getApiURL();
         String updateEmployeeUrl = baseApiUrl + "/employee/" + e.getId();
 
@@ -95,7 +95,7 @@ public class EmployeeProxy {
     }
 
     // Delete an employee
-    public void deleteEmployee(int id){
+    public void deleteEmployee(int id) {
         String baseApiUrl = customProperties.getApiURL();
         String deleteEmployeeUrl = baseApiUrl + "/employee/" + id;
 
