@@ -22,12 +22,12 @@ public class EmployeeProxy {
 
     // Get all employees
     public Iterable<Employee> getEmployees() {
-        String baseApiUrl = customProperties.getApiURL();
-        String getEmployeeUrl = baseApiUrl + "/employees";
+        String baseApiUrl = customProperties.getApiUrl();
+        String getEmployeesUrl = baseApiUrl + "/employees";
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Iterable<Employee>> response = restTemplate.exchange(
-                getEmployeeUrl,
+                getEmployeesUrl,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<Iterable<Employee>>() {}
@@ -40,7 +40,7 @@ public class EmployeeProxy {
 
     // Get an employee by id
     public Employee getEmployee(int id) {
-        String baseApiUrl = customProperties.getApiURL();
+        String baseApiUrl = customProperties.getApiUrl();
         String getEmployeeUrl = baseApiUrl + "/employee/" + id;
 
         RestTemplate restTemplate = new RestTemplate();
@@ -51,14 +51,14 @@ public class EmployeeProxy {
                 Employee.class
         );
 
-        log.debug("Get Employee call" + response.getStatusCode().toString());
+        log.debug("Get Employee call " + response.getStatusCode().toString());
 
         return response.getBody();
     }
 
     // Create a new employee
     public Employee createEmployee(Employee e) {
-        String baseApiUrl = customProperties.getApiURL();
+        String baseApiUrl = customProperties.getApiUrl();
         String createEmployeeUrl = baseApiUrl + "/employee";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -70,14 +70,14 @@ public class EmployeeProxy {
                 Employee.class
         );
 
-        log.debug("Create Employee call" + response.getStatusCode().toString());
+        log.debug("Create Employee call " + response.getStatusCode().toString());
 
         return  response.getBody();
     }
 
     // Update an employee
     public Employee updateEmployee(Employee e) {
-        String baseApiUrl = customProperties.getApiURL();
+        String baseApiUrl = customProperties.getApiUrl();
         String updateEmployeeUrl = baseApiUrl + "/employee/" + e.getId();
 
         RestTemplate restTemplate = new RestTemplate();
@@ -96,7 +96,7 @@ public class EmployeeProxy {
 
     // Delete an employee
     public void deleteEmployee(int id) {
-        String baseApiUrl = customProperties.getApiURL();
+        String baseApiUrl = customProperties.getApiUrl();
         String deleteEmployeeUrl = baseApiUrl + "/employee/" + id;
 
         RestTemplate restTemplate = new RestTemplate();

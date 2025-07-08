@@ -12,13 +12,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.openclassrooms.webapp.model.Employee;
 import com.openclassrooms.webapp.service.EmployeeService;
 
+import lombok.Data;
+
+@Data
 @Controller
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
-    // GET all employees
     @GetMapping("/")
     public String home(Model model) {
         Iterable<Employee> listEmployee = employeeService.getEmployees();
@@ -26,7 +28,6 @@ public class EmployeeController {
         return "home";
     }
 
-    // CREATE an employee
     @GetMapping("/createEmployee")
     public String createEmployee(Model model) {
         Employee e = new Employee();
@@ -34,7 +35,6 @@ public class EmployeeController {
         return "formNewEmployee";
     }
 
-    // UPDATE an employee
     @GetMapping("/updateEmployee/{id}")
     public String updateEmployee(@PathVariable("id") final int id, Model model) {
         Employee e = employeeService.getEmployee(id);
@@ -42,7 +42,6 @@ public class EmployeeController {
         return "formUpdateEmployee";
     }
 
-    // DELETE an employee by id
     @GetMapping("/deleteEmployee/{id}")
     public ModelAndView deleteEmployee(@PathVariable("id") final int id) {
         employeeService.deleteEmployee(id);
