@@ -6,6 +6,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.openclassrooms.webapp.configuration.CustomProperties;
@@ -30,10 +32,11 @@ public class EmployeeProxy {
                 getEmployeesUrl,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<Iterable<Employee>>() {}
+                new ParameterizedTypeReference<>() {
+                }
         );
 
-        log.debug("Get Employees call " + response.getStatusCode().toString());
+        log.debug("Get Employees call {}", response.getStatusCode());
 
         return response.getBody();
     }
@@ -51,7 +54,7 @@ public class EmployeeProxy {
                 Employee.class
         );
 
-        log.debug("Get Employee call " + response.getStatusCode().toString());
+        log.debug("Get Employee call {}", response.getStatusCode());
 
         return response.getBody();
     }
@@ -62,7 +65,7 @@ public class EmployeeProxy {
         String createEmployeeUrl = baseApiUrl + "/employee";
 
         RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<Employee> request = new HttpEntity<Employee>(e);
+        HttpEntity<Employee> request = new HttpEntity<>(e);
         ResponseEntity<Employee> response = restTemplate.exchange(
                 createEmployeeUrl,
                 HttpMethod.POST,
@@ -70,7 +73,7 @@ public class EmployeeProxy {
                 Employee.class
         );
 
-        log.debug("Create Employee call " + response.getStatusCode().toString());
+        log.debug("Create Employee call {}", response.getStatusCode());
 
         return  response.getBody();
     }
@@ -81,17 +84,24 @@ public class EmployeeProxy {
         String updateEmployeeUrl = baseApiUrl + "/employee/" + e.getId();
 
         RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<Employee> request = new HttpEntity<Employee>(e);
-        ResponseEntity<Employee> response = restTemplate.exchange(
-                updateEmployeeUrl,
-                HttpMethod.PUT,
-                request,
-                Employee.class
-        );
 
-        log.debug("Update Employee call " + response.getStatusCode().toString());
+        try {
+            HttpEntity<Employee> request = new HttpEntity<>(e);
+            ResponseEntity<Employee> response = restTemplate.exchange(
+                    updateEmployeeUrl,
+                    HttpMethod.PUT,
+                    request,
+                    Employee.class
+            );
+            log.debug("Update Employee call {}", response.getStatusCode());
 
-        return response.getBody();
+            return response.getBody();
+
+        } catch (HttpClientErrorException | HttpServerErrorException ex) {
+            log.error("Updating employee Status: {}", ex.getStatusCode());
+            log.error("Updating employee Body: {}", ex.getResponseBodyAsString());
+            throw ex;
+            }
     }
 
     // Delete an employee
@@ -100,12 +110,21 @@ public class EmployeeProxy {
         String deleteEmployeeUrl = baseApiUrl + "/employee/" + id;
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Void> response = restTemplate.exchange(
-                deleteEmployeeUrl,
-                HttpMethod.DELETE,
-                null,
-                Void.class);
 
-        log.debug("Delete Employee call " + response.getStatusCode().toString());
+        try {
+            ResponseEntity<Void> response = restTemplate.exchange(
+                    deleteEmployeeUrl,
+                    HttpMethod.DELETE,
+                    null,
+                    Void.class);
+
+            log.debug("Delete Employee call {}", response.getStatusCode());
+
+        } catch (HttpClientErrorException | HttpServerErrorException ex) {
+            log.error("Deleting employee Status: {}", ex.getStatusCode());
+            log.error("Deleting employee Body: {}", ex.getResponseBodyAsString());
+        } catch (Exception ex) {
+            log.error("Unexpected error occurred while deleting employee", ex);
+        }
     }
 }
