@@ -18,7 +18,7 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
           crossorigin="anonymous">
 
-    <title>Modification employée</title>
+    <title>Modification customer</title>
 
     <style>
         body {
@@ -37,19 +37,19 @@
         <div class="navbar-header">
             <a
                     class="navbar-brand"
-                    href=".">Système de gestion des employées
+                    th:href="@{/gestionCustomer}">Modification customer
             </a>
         </div>
     </div>
 </nav>
 
 <div class="container special">
-    <h2 class="h2">Modification d'un employée</h2>
+    <h2 class="h2">Modification d'un customer</h2>
     <div>
         <form
                 method="post"
-                th:action="@{/saveEmployee}"
-                th:object="${employee}">
+                th:action="@{/saveCustomer}"
+                th:object="${customer}">
 
             <div class="form-group">
                 <input
@@ -69,8 +69,8 @@
                         placeholder="Saisir le prénom"
                         required>
                 <small
-                    id="firstNameHelp"
-                    class="form-text text-muted">Merci d'écrire le prénom de l'employée.
+                        id="firstNameHelp"
+                        class="form-text text-muted">Saisir le prénom.
                 </small>
             </div>
 
@@ -85,25 +85,29 @@
                         placeholder="Saisir le nom"
                         required>
                 <small
-                    id="lastNameHelp"
-                    class="form-text text-muted">Merci d'écrire le nom de l'employée.
+                        id="lastNameHelp"
+                        class="form-text text-muted">Saisir le nom.
                 </small>
             </div>
 
             <div class="form-group">
-                <label for="mailInput">Email</label>
+                <label for="birthDateInput">Date de naissance</label>
                 <input
-                        type="email"
-                        th:field="*{mail}"
+                        type="date"
+                        th:field="*{birthDate}"
                         class="form-control"
-                        id="mailInput"
-                        aria-describedby="mailHelp"
-                        placeholder="Saisir l'adresse email"
+                        id="birthDateInput"
+                        aria-describedby="birthDateHelp"
+                        placeholder="JJ/MM/AAAA"
                         required>
                 <small
-                    id="mailHelp"
-                    class="form-text text-muted">Merci d'écrire l'adresse email de l'employée.
+                        id="birthDateHelp"
+                        class="form-text text-muted">Entrez votre date de naissance.
                 </small>
+                <div class="text-danger"
+                     th:if="${#fields.hasErrors('birthDate')}"
+                     th:errors="*{birthDate}">
+                </div>
             </div>
 
             <div>
@@ -112,7 +116,7 @@
                         class="btn btn-primary">Modifier
                 </button>
                 <a
-                        th:href="@{/}"
+                        th:href="@{/gestionCustomer}"
                         class="btn btn-danger">Annuler
                 </a>
             </div>

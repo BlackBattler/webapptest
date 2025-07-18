@@ -35,10 +35,20 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href=".">Système de gestion des employées</a>
+                <a
+                        class="navbar-brand"
+                        href=".">Système de gestion des employées
+                </a>
             </div>
         </div>
     </nav>
+
+    <div class="container special">
+        <a
+                th:href="@{/gestionCustomer}"
+                class="btn btn-info">Gestion des customers
+        </a>
+    </div>
 
     <div class="container special">
         <h2 class="h2">Liste des employées</h2>
@@ -48,6 +58,7 @@
                     <tr>
                         <th>Prénom</th>
                         <th>Nom</th>
+                        <th>Email</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -58,6 +69,7 @@
                     <tr th:each="employee: ${employees}">
                         <td><span th:text="${employee.firstName}"> Prénom </span></td>
                         <td><span th:text="${employee.lastName}"> Nom </span></td>
+                        <td><span th:text="${employee.mail}"> Email </span></td>
                         <td>
                             <a th:href="@{/updateEmployee/{id}(id=${employee.id})}"><button class="btn btn-info">Modifier</button></a>
                             <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}"><button class="btn btn-danger">Supprimer</button></a>

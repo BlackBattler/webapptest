@@ -101,6 +101,7 @@ public class EmployeeProxy {
             log.error("Updating employee Status: {}", ex.getStatusCode());
             log.error("Updating employee Body: {}", ex.getResponseBodyAsString());
             throw ex;
+
             }
     }
 

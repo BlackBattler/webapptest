@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html
+        lang="fr"
+        xmlns="http://www.w3.org/1999/xhml"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+
+    <title>Gestion des Customers</title>
+
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        .special {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a
+                    class="navbar-brand"
+                    href=".">Système de gestion des customers
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container special">
+    <a
+            href="."
+            class="btn btn-info">Gestion des employées
+    </a>
+</div>
+
+<div class="container special">
+    <h2 class="h2">Liste des customers</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Birthday</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${customers.empty}">
+                <td colspan="3">Aucun employée en base de données</td>
+            </tr>
+            <tr th:each="customer: ${customers}">
+                <td><span th:text="${customer.firstName}"> Prénom </span></td>
+                <td><span th:text="${customer.lastName}"> Nom </span></td>
+                <td><span th:text="${customer.birthDate}"> Birthday </span></td>
+                <td>
+                    <a th:href="@{/updateCustomer/{id}(id=${customer.id})}"><button class="btn btn-info">Modifier</button></a>
+                    <a th:href="@{/deleteCustomer/{id}(id=${customer.id})}"><button class="btn btn-danger">Supprimer</button></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <h4><a th:href="@{/createCustomer}">Ajouter un nouveau customer</a></h4>
+</div>
+</body>
+</html>

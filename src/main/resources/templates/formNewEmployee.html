@@ -35,7 +35,10 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href=".">Système de gestion des employées</a>
+            <a
+                    class="navbar-brand"
+                    href=".">Système de gestion des employées
+            </a>
         </div>
     </div>
 </nav>
@@ -43,40 +46,83 @@
 <div class="container special">
     <h2 class="h2">Ajout d'un nouvel employée</h2>
     <div>
-        <form method="post"
-              th:action="@{/saveEmployee}" th:object="${employee}">
+        <form
+                method="post"
+                th:action="@{/saveEmployee}"
+                th:object="${employee}">
+
             <div class="form-group">
                 <label for="firstNameInput">Prénom</label>
                 <input
-                        type="text" th:field="*{firstName}" class="form-control" id="firstNameInput"
-                        aria-describedby="firstNameHelp" placeholder="Saisir le prénom"> <small
-                    id="firstNameHelp" class="form-text text-muted">Merci d'écrire le prénom de l'employée.</small>
+                        type="text"
+                        th:field="*{firstName}"
+                        class="form-control"
+                        id="firstNameInput"
+                        aria-describedby="firstNameHelp"
+                        placeholder="Saisir le prénom"
+                        required>
+                <small
+                    id="firstNameHelp"
+                    class="form-text text-muted">Merci d'écrire le prénom de l'employée.
+                </small>
             </div>
+
             <div class="form-group">
                 <label for="lastNameInput">Nom</label>
                 <input
-                        type="text" th:field="*{lastName}" class="form-control" id="lastNameInput"
-                aria-describedby="lastNameHelp" placeholder="Saisir le nom"> <small
-                    id="lastNameHelp" class="form-text text-muted">Merci d'écrire le nom de l'employée.</small>
+                        type="text"
+                        th:field="*{lastName}"
+                        class="form-control"
+                        id="lastNameInput"
+                        aria-describedby="lastNameHelp"
+                        placeholder="Saisir le nom"
+                        required>
+                <small
+                    id="lastNameHelp"
+                    class="form-text text-muted">Merci d'écrire le nom de l'employée.
+                </small>
             </div>
+
             <div class="form-group">
                 <label for="mailInput">Email</label>
                 <input
-                        type="text" th:field="*{mail}" class="form-control" id="mailInput"
-                        aria-describedby="mailHelp" placeholder="Saisir l'adresse email"> <small
-                    id="mailHelp" class="form-text text-muted">Merci d'écrire l'adresse email de l'employée.</small>
+                        type="email"
+                        th:field="*{mail}"
+                        class="form-control"
+                        id="mailInput"
+                        aria-describedby="mailHelp"
+                        placeholder="Saisir l'adresse email"
+                        required>
+                <small
+                    id="mailHelp"
+                    class="form-text text-muted">Merci d'écrire l'adresse email de l'employée.
+                </small>
             </div>
+
             <div class="form-group">
                 <label for="passwordInput">Mot de passe</label>
                 <input
-                        type="password" th:field="*{password}" class="form-control" id="passwordInput"
-                        placeholder="Mot de passe">
+                        type="password"
+                        th:field="*{password}"
+                        class="form-control"
+                        id="passwordInput"
+                        placeholder="Mot de passe"
+                        autocomplete="new-password"
+                        required>
             </div>
 
-            <button type="submit" class="btn btn-primary">Créer</button>
+            <div>
+                <button
+                        type="submit"
+                        class="btn btn-primary">Créer
+                </button>
+                <a
+                        href="."
+                        class="btn btn-danger">Annuler
+                </a>
+            </div>
         </form>
     </div>
-
 </div>
 
 <script
